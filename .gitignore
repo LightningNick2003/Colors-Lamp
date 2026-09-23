@@ -1,0 +1,7 @@
+# Local database configuration
+api/config.php
+.env
+
+# Logs and editor settings
+*.log
+.vscode/
