@@ -5,3 +5,7 @@ api/config.php
 # Logs and editor settings
 *.log
 .vscode/
+
+# Original downloaded lab package
+LAMP_Stack/
+*.zip
