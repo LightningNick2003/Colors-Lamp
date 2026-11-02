@@ -1,0 +1,35 @@
+@startuml
+title COLORS Web Application - Use Case Diagram
+
+left to right direction
+
+actor User
+
+rectangle "COLORS Web Application" {
+    usecase "Log In" as UC_Login
+    usecase "Validate Credentials" as UC_Validate
+    usecase "Add Color" as UC_Add
+    usecase "Search Saved Colors" as UC_Search
+    usecase "Display Matching Colors" as UC_Display
+    usecase "Log Out" as UC_Logout
+}
+
+User --> UC_Login
+User --> UC_Add
+User --> UC_Search
+User --> UC_Logout
+
+UC_Login ..> UC_Validate : <<include>>
+UC_Search ..> UC_Display : <<include>>
+
+note right of UC_Add
+  Color is associated with
+  the logged-in user's ID.
+end note
+
+note right of UC_Search
+  Search supports partial names
+  and only returns that user's colors.
+end note
+
+@enduml

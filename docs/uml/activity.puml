@@ -1,0 +1,52 @@
+@startuml
+title COLORS Web Application - Activity Diagram
+
+start
+
+:Open login page;
+
+repeat
+    :Enter username and password;
+    :Send login request to Login.php;
+    :Query Users table;
+
+    if (Credentials valid?) then (Yes)
+        :Return user ID and name;
+        :Save user information in cookie;
+        :Open color page;
+    else (No)
+        :Return "No Records Found";
+        :Display incorrect login message;
+    endif
+
+repeat while (Credentials invalid?) is (Yes)
+
+while (User remains logged in?) is (Yes)
+    :Choose an action;
+
+    if (Add a color?) then (Yes)
+        :Enter color name;
+        :Send color and user ID\nto AddColor.php;
+        :Insert color into Colors table;
+        :Display confirmation message;
+
+    elseif (Search colors?) then (Yes)
+        :Enter partial color name;
+        :Send search text and user ID\nto SearchColors.php;
+        :Query matching colors for user;
+
+        if (Matches found?) then (Yes)
+            :Return and display matching colors;
+        else (No)
+            :Return "No Records Found";
+        endif
+
+    else (Log out)
+        :Clear user cookie;
+        :Return to login page;
+        stop
+    endif
+endwhile (No)
+
+stop
+@enduml

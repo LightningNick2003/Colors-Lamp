@@ -1,0 +1,61 @@
+@startuml
+title COLORS Web Application - Class Diagram
+
+skinparam classAttributeIconSize 0
+
+class ColorsWebClient <<JavaScript>> {
+    - userId : int
+    - firstName : string
+    - lastName : string
+    + doLogin()
+    + saveCookie()
+    + readCookie()
+    + doLogout()
+    + addColor()
+    + searchColor()
+}
+
+class LoginAPI <<PHP endpoint>> {
+    + authenticate(login : string, password : string) : JSON
+}
+
+class AddColorAPI <<PHP endpoint>> {
+    + addColor(color : string, userId : int) : JSON
+}
+
+class SearchColorsAPI <<PHP endpoint>> {
+    + searchColors(search : string, userId : int) : JSON
+}
+
+class User <<database table>> {
+    + ID : int
+    + FirstName : varchar(50)
+    + LastName : varchar(50)
+    + Login : varchar(50)
+    + Password : varchar(50)
+}
+
+class Color <<database table>> {
+    + ID : int
+    + Name : varchar(50)
+    + UserID : int
+}
+
+ColorsWebClient ..> LoginAPI : sends login request
+ColorsWebClient ..> AddColorAPI : sends add request
+ColorsWebClient ..> SearchColorsAPI : sends search request
+
+LoginAPI ..> User : queries
+AddColorAPI ..> Color : inserts
+SearchColorsAPI ..> Color : queries
+
+User "1" -- "0..*" Color : owns
+
+note on link
+  Color.UserID logically associates each
+  color with its owning user.
+  The schema does not declare an explicit
+  SQL foreign-key constraint.
+end note
+
+@enduml
