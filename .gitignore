@@ -9,3 +9,4 @@ api/config.php
 # Original downloaded lab package
 LAMP_Stack/
 *.zip
+node_modules/
