@@ -26,3 +26,6 @@ jobs:
 
       - name: Run HTML, CSS, and JavaScript linting
         run: npm run lint
+
+      - name: Run automated tests
+        run: npm test
